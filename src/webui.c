@@ -1453,10 +1453,10 @@ static bool _webui_is_firefox_ini_profile_exist(const char* path, const char* pr
         } else {
             // If for some reason HOME isn't set
             // fall back to the original path.
-            strncpy(full_path, path, sizeof(full_path));
+            strncpy(full_path, path, sizeof(full_path)-1);
         }
     } else {
-        strncpy(full_path, path, sizeof(full_path));
+        strncpy(full_path, path, sizeof(full_path)-1);
     }
     #endif
 
@@ -1511,10 +1511,10 @@ static void _webui_remove_firefox_profile_ini(const char* path, const char* prof
         } else {
             // If for some reason HOME isn't set
             // fall back to the original path.
-            strncpy(full_path, path, sizeof(full_path));
+            strncpy(full_path, path, sizeof(full_path)-1);
         }
     } else {
-        strncpy(full_path, path, sizeof(full_path));
+        strncpy(full_path, path, sizeof(full_path)-1);
     }
     #endif
 
@@ -4376,10 +4376,10 @@ static bool _webui_file_exist(const char* path) {
         } else {
             // If for some reason HOME isn't set
             // fall back to the original path.
-            strncpy(full_path, path, sizeof(full_path));
+            strncpy(full_path, path, sizeof(full_path)-1);
         }
     } else {
-        strncpy(full_path, path, sizeof(full_path));
+        strncpy(full_path, path, sizeof(full_path)-1);
     }
     #endif
 
@@ -6400,7 +6400,7 @@ static int _webui_cmd_sync(_webui_window_t* win, char* cmd, bool show) {
     return _webui_system_win32(win, buf, show);
     #else
     // Using: _CMD_
-    WEBUI_SN_PRINTF_STATIC(buf, sizeof(buf), "%s >>/dev/null 2>>/dev/null", cmd);
+    WEBUI_SN_PRINTF_STATIC(buf, sizeof(buf)-1, "%s >>/dev/null 2>>/dev/null", cmd);
     #ifdef WEBUI_LOG
     printf("[Core]\t\t_webui_cmd_sync() -> Running [%s] \n", buf);
     #endif
@@ -6431,7 +6431,7 @@ static int _webui_cmd_async(_webui_window_t* win, char* cmd, bool show) {
     return _webui_system_win32(win, buf, show);
     #else
     // Using: _CMD_ &
-    WEBUI_SN_PRINTF_STATIC(buf, sizeof(buf), "%s >>/dev/null 2>>/dev/null &", cmd);
+    WEBUI_SN_PRINTF_STATIC(buf, sizeof(buf)-1, "%s >>/dev/null 2>>/dev/null &", cmd);
     #ifdef WEBUI_LOG
     printf("[Core]\t\t_webui_cmd_async() -> Running [%s] \n", buf);
     #endif
@@ -6527,7 +6527,7 @@ static int _webui_get_browser_args(_webui_window_t* win, size_t browser, char* b
         case Firefox:
             // Profile
             if (!_webui_is_empty(win->profile_name))
-                c = WEBUI_SN_PRINTF_DYN(buffer, len, " -P %s", win->profile_name);
+                c = WEBUI_SN_PRINTF_DYN(buffer, len-2, " -P %s", win->profile_name);
             // Basic
             if (_webui_is_empty(win->custom_parameters)) {
                 c += WEBUI_SN_PRINTF_DYN(buffer + c, len, " -purgecaches");
@@ -8260,7 +8260,7 @@ static bool _webui_client_cookies_save(_webui_window_t* win, const char* cookies
     #endif
     // [win number][_][cookies]
     char win_cookies[WEBUI_COOKIES_BUF];
-    WEBUI_SN_PRINTF_STATIC(win_cookies, sizeof(win_cookies), "%zu_%s", win->num, cookies);
+    WEBUI_SN_PRINTF_STATIC(win_cookies, sizeof(win_cookies) -1, "%zu_%s", win->num, cookies);
     for (size_t i = 0; i < WEBUI_MAX_IDS; i++) {
         if (_webui.cookies[i] == NULL) {
             _webui.cookies[i] = _webui_str_dup(win_cookies);
