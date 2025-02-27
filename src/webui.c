@@ -6527,7 +6527,7 @@ static int _webui_get_browser_args(_webui_window_t* win, size_t browser, char* b
         case Firefox:
             // Profile
             if (!_webui_is_empty(win->profile_name))
-                c = WEBUI_SN_PRINTF_DYN(buffer, len-2, " -P %s", win->profile_name);
+                c = WEBUI_SN_PRINTF_DYN(buffer, len - 1, " -P %s", win->profile_name);
             // Basic
             if (_webui_is_empty(win->custom_parameters)) {
                 c += WEBUI_SN_PRINTF_DYN(buffer + c, len, " -purgecaches");

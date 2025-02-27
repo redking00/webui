@@ -48,7 +48,7 @@ ARCH_TARGET ?=
 CIVETWEB_BUILD_FLAGS := -o civetweb.o -I"$(MAKEFILE_DIR)/include/" -c "$(MAKEFILE_DIR)/src/civetweb/civetweb.c" -I"$(WEBUI_TLS_INCLUDE)" $(TLS_CFLAG) -w
 CIVETWEB_DEFINE_FLAGS = -DNDEBUG -DNO_CACHING -DNO_CGI -DUSE_WEBSOCKET $(TLS_CFLAG)
 WEBUI_BUILD_FLAGS := -o webui.o -I"$(MAKEFILE_DIR)/include/" -c "$(MAKEFILE_DIR)/src/webui.c" -I"$(WEBUI_TLS_INCLUDE)" $(TLS_CFLAG)
-WARNING_RELEASE := -Wstringop-truncation
+WARNING_RELEASE := -Wformat-truncation -Wstringop-truncation
 WARNING_LOG := -Wall -Wno-unused
 
 # OUTPUT FILES
